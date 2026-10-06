@@ -5,7 +5,9 @@
 #include "FlowComponent.h"
 
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "DefaultMovementSet/NavMoverComponent.h"
+#include "GameFramework/Controller.h"
 #include "NavFilters/NavigationQueryFilter.h"
 #include "NavigationSystem.h"
 #include "Navigation/PathFollowingComponent.h"
