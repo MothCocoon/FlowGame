@@ -9,6 +9,7 @@
 #include "Player/PlayerTags.h"
 #include "Player/TaggedInputComponent.h"
 
+#include "Engine/LocalPlayer.h"
 #include "EnhancedInputSubsystems.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(BasicPlayerController)

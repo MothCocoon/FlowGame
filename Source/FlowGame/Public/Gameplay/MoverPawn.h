@@ -1,6 +1,7 @@
 ﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
+#include "GameFramework/Pawn.h"
 #include "MoverSimulationTypes.h"
 #include "MoverPawn.generated.h"
 
