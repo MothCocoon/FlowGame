@@ -2,3 +2,7 @@
 	path = Plugins/FlowGraph
 	url = https://github.com/MothCocoon/FlowGraph
 	branch = 5.x
+[submodule "Plugins/FlowActorFramework"]
+	path = Plugins/FlowActorFramework
+	url = https://github.com/MothCocoon/FlowActorFramework
+	branch = main
