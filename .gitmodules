@@ -5,4 +5,4 @@
 [submodule "Plugins/FlowActors"]
 	path = Plugins/FlowActors
 	url = https://github.com/MothCocoon/FlowActors
-	branch = main
+	branch = 5.x
