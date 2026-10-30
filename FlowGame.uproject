@@ -24,6 +24,10 @@
 			"Enabled": true
 		},
 		{
+			"Name": "FlowActors",
+			"Enabled": true
+		},
+		{
 			"Name": "Iris",
 			"Enabled": true
 		},
