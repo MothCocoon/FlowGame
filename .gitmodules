@@ -2,7 +2,27 @@
 	path = Plugins/FlowGraph
 	url = https://github.com/MothCocoon/FlowGraph
 	branch = 5.x
+[submodule "Plugins/AIFlowActors"]
+	path = Plugins/AIFlowActors
+	url = https://github.com/MothCocoon/AIFlowActors
+	branch = 5.x
+[submodule "Plugins/AIFlowGameplayTags"]
+	path = Plugins/AIFlowGameplayTags
+	url = https://github.com/MothCocoon/AIFlowGameplayTags
+	branch = 5.x
+[submodule "Plugins/AIFlowGraph"]
+	path = Plugins/AIFlowGraph
+	url = https://github.com/MothCocoon/AIFlowGraph
+	branch = 5.x
+[submodule "Plugins/BlackboardGameplayTags"]
+	path = Plugins/BlackboardGameplayTags
+	url = https://github.com/MothCocoon/BlackboardGameplayTags
+	branch = 5.x
 [submodule "Plugins/FlowActors"]
 	path = Plugins/FlowActors
 	url = https://github.com/MothCocoon/FlowActors
+	branch = 5.x
+[submodule "Plugins/FlowAgentToolkit"]
+	path = Plugins/FlowAgentToolkit
+	url = https://github.com/MothCocoon/FlowAgentToolkit
 	branch = 5.x
