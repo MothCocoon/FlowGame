@@ -21,12 +21,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "ObservedComponent")
 	FGameplayTagContainer IdentityTags;
 	
-protected:
+public:
 	virtual void ExecuteInput(const FName& PinName) override;
 
 #if WITH_EDITOR
 public:
 	virtual FString GetNodeDescription() const override;
+
+protected:
 	virtual EDataValidationResult ValidateNode() override;
 #endif
 };

@@ -1,15 +1,10 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Player/BasicUIManager.h"
 
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(BasicUIManager)
-
-UBasicUIManager::UBasicUIManager()
-{
-}
 
 void UBasicUIManager::OpenWidget(const TSoftClassPtr<UUserWidget> SoftClass)
 {

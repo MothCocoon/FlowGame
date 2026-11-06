@@ -1,6 +1,6 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Triggers/FlowTriggerBase.h"
+
 #include "Flow/Triggers/FlowTriggerComponent.h"
 
 #include "UObject/ConstructorHelpers.h"

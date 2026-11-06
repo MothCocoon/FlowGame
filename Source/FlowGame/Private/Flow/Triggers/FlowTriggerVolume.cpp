@@ -1,6 +1,6 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Triggers/FlowTriggerVolume.h"
+
 #include "Flow/Triggers/FlowTriggerComponent.h"
 
 #include "Components/BrushComponent.h"

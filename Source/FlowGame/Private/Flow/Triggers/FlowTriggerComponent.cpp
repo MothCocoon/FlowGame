@@ -1,6 +1,6 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Triggers/FlowTriggerComponent.h"
+
 #include "FlowSubsystem.h"
 
 #include "Components/BrushComponent.h"
@@ -8,13 +8,6 @@
 #include "TimerManager.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowTriggerComponent)
-
-UFlowTriggerComponent::UFlowTriggerComponent(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-	, bAutoEnable(true)
-	, bOverlapEnabled(false)
-{
-}
 
 void UFlowTriggerComponent::NotifyFromGraph(const FGameplayTagContainer& NotifyTags, const EFlowNetMode NetMode /* = EFlowNetMode::Authority*/)
 {

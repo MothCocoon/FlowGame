@@ -1,5 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #include "Player/PlayerTags.h"
 
 namespace PlayerTags

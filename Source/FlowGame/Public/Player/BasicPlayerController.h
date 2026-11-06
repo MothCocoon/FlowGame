@@ -17,10 +17,11 @@ class ABasicPlayerController : public APlayerController
 private:
 	TWeakObjectPtr<class UTaggedInputComponent> TaggedInputComponent;
 
-public:
+protected:
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
 
+public:
 	void SetExplorationContext();
 	void AddPitch();
 	void AddYaw();

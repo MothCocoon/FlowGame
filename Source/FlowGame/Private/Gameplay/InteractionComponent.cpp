@@ -1,5 +1,4 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Gameplay/InteractionComponent.h"
 
 #include "Camera/PlayerCameraManager.h"
@@ -12,7 +11,6 @@ FPlayerInInteractionEvent UInteractionComponent::OnPlayerExit;
 
 UInteractionComponent::UInteractionComponent(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
-	, Distance(100.0f)
 {
 	bAutoActivate = true;
 

@@ -1,4 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
 #include "FlowSubsystem.h"
@@ -12,8 +12,6 @@ UCLASS()
 class UFlowSaveSubsystem final : public UFlowSubsystem, public FSelfRegisteringExec
 {
 	GENERATED_BODY()
-
-	UFlowSaveSubsystem();
 
 public:
 	static FString CheckpointSlotName;

@@ -1,5 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #include "Gameplay/MoverPawn.h"
 
 #include "FlowComponent.h"
@@ -16,7 +15,6 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(MoverPawn)
 
 AMoverPawn::AMoverPawn()
-	: RadiusOfReachablePoint(50.0f)
 {
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
 	CapsuleComponent->SetCapsuleHalfHeight(90.0f);

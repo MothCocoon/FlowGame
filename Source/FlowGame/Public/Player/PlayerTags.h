@@ -1,4 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
 #include "NativeGameplayTags.h"
