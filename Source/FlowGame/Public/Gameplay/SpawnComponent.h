@@ -59,6 +59,8 @@ public:
 	bool Spawn(const FQuestSpawnParams& SpawnParams);
 	void Despawn();
 
+	bool HasSpawnedActor() const { return SpawnedActor.IsValid(); }
+
 private:
 	static void SetAnimationOnSpawnedMesh(USkeletalMeshComponent* SkeletalMeshComponent, const FQuestSpawnParams& SpawnParams);
 

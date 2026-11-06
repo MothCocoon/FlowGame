@@ -41,6 +41,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
 	void Disable();
 
+	bool IsEnabled() const { return bEnabled; }
+
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")

@@ -21,17 +21,20 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Trigger")
 	FGameplayTagContainer OverlappedActorTags;
 
-	bool bReactOnOverlapping;
+	bool bReactOnOverlapping = false;
 
+public:
 	virtual void ExecuteInput(const FName& PinName) override;
-	
+
+protected:
 	virtual void ObserveActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component) override;
 	virtual void ForgetActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component) override;
 
 	UFUNCTION()
 	virtual void OnTriggerEvent(const bool bOverlapping, UFlowComponent* OtherFlowComponent);
 
-public:
+	virtual void FastForwardEvent() override;
+
 #if WITH_EDITOR
 	virtual EDataValidationResult ValidateNode() override;
 #endif

@@ -1,12 +1,13 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Nodes/FlowNode_OnTriggerEvent.h"
+
 #include "Flow/Triggers/FlowTriggerComponent.h"
+
+#include "FlowSubsystem.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowNode_OnTriggerEvent)
 
 UFlowNode_OnTriggerEvent::UFlowNode_OnTriggerEvent()
-	: bReactOnOverlapping(false)
 {
 	// default behavior: react on Player overlapping with triggers
 	if (FGameplayTag::IsValidGameplayTagString(TEXT("Player.Pawn")))
@@ -52,6 +53,40 @@ void UFlowNode_OnTriggerEvent::OnTriggerEvent(const bool bOverlapping, UFlowComp
 	if (bReactOnOverlapping == bOverlapping && OtherFlowComponent->IdentityTags.HasAnyExact(OverlappedActorTags))
 	{
 		OnEventReceived();
+	}
+}
+
+void UFlowNode_OnTriggerEvent::FastForwardEvent()
+{
+	UFlowTriggerComponent* TriggerComponent = nullptr;
+	for (const TPair<TWeakObjectPtr<AActor>, TWeakObjectPtr<UFlowComponent>>& RegisteredActor : RegisteredActors)
+	{
+		UFlowTriggerComponent* RegisteredTrigger = Cast<UFlowTriggerComponent>(RegisteredActor.Value.Get());
+		if (TriggerComponent == nullptr && RegisteredTrigger && RegisteredTrigger->bOverlapEnabled)
+		{
+			TriggerComponent = RegisteredTrigger;
+		}
+	}
+
+	// Actor matching Overlapped Actor Tags enters or leaves the trigger, so every listener of the trigger reacts
+	UFlowComponent* OverlappingComponent = nullptr;
+	for (const TWeakObjectPtr<UFlowComponent>& FoundComponent : GetFlowSubsystem()->GetComponents<UFlowComponent>(OverlappedActorTags, EGameplayContainerMatchType::Any))
+	{
+		if (OverlappingComponent == nullptr)
+		{
+			OverlappingComponent = FoundComponent.Get();
+		}
+	}
+
+	if (TriggerComponent && OverlappingComponent)
+	{
+		// Actor leaves only the trigger it entered before
+		if (!bReactOnOverlapping)
+		{
+			TriggerComponent->OnTriggerEvent.Broadcast(true, OverlappingComponent);
+		}
+
+		TriggerComponent->OnTriggerEvent.Broadcast(bReactOnOverlapping, OverlappingComponent);
 	}
 }
 

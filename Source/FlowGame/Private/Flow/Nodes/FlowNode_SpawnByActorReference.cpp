@@ -1,5 +1,4 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Nodes/FlowNode_SpawnByActorReference.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowNode_SpawnByActorReference)
@@ -71,9 +70,16 @@ void UFlowNode_SpawnByActorReference::ExecuteInput(const FName& PinName)
 	}
 }
 
+bool UFlowNode_SpawnByActorReference::CanFastForward(const FName& InputPinName, const FName& OutputPinName) const
+{
+	return (InputPinName == TEXT("Despawn")) == (OutputPinName == TEXT("Despawned"));
+}
+
 void UFlowNode_SpawnByActorReference::Cleanup()
 {
 	SpawnComponents.Empty();
+
+	Super::Cleanup();
 }
 
 #if WITH_EDITOR
