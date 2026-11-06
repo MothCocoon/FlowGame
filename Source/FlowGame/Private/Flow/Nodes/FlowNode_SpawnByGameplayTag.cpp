@@ -27,9 +27,9 @@ void UFlowNode_SpawnByGameplayTag::ExecuteInput(const FName& PinName)
 		{
 			for (TWeakObjectPtr<USpawnComponent> SpawnComponent : SpawnComponents)
 			{
-				if (SpawnComponent.IsValid())
+				if (USpawnComponent* SpawnComponentPtr = SpawnComponent.Get())
 				{
-					SpawnComponent->Despawn();
+					SpawnComponentPtr->Despawn();
 				}
 			}
 		}

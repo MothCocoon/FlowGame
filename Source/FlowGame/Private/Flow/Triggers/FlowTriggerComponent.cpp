@@ -54,10 +54,10 @@ void UFlowTriggerComponent::DisableOverlap()
 
 		for (TWeakObjectPtr<UPrimitiveComponent>& CollisionComponent : CollisionComponents)
 		{
-			if (CollisionComponent.IsValid())
+			if (UPrimitiveComponent* CollisionComponentPtr = CollisionComponent.Get())
 			{
-				CollisionComponent->OnComponentBeginOverlap.RemoveAll(this);
-				CollisionComponent->OnComponentEndOverlap.RemoveAll(this);
+				CollisionComponentPtr->OnComponentBeginOverlap.RemoveAll(this);
+				CollisionComponentPtr->OnComponentEndOverlap.RemoveAll(this);
 			}
 		}
 		CollisionComponents.Empty();
@@ -98,9 +98,9 @@ void UFlowTriggerComponent::OnComponentBeginOverlap(UPrimitiveComponent* InOverl
 			TWeakObjectPtr<UFlowComponent> FlowComponentWeakPtr(FlowComponents[0]);
 			GetOwner()->GetWorldTimerManager().SetTimerForNextTick([SelfWeakPtr, FlowComponentWeakPtr]()
 			{
-				if (SelfWeakPtr.IsValid())
+				if (UFlowTriggerComponent* Self = SelfWeakPtr.Get())
 				{
-					SelfWeakPtr->OnTriggerEvent.Broadcast(true, FlowComponentWeakPtr.Get());
+					Self->OnTriggerEvent.Broadcast(true, FlowComponentWeakPtr.Get());
 				}
 			});
 		}
