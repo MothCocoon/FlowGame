@@ -12,6 +12,18 @@
 	],
 	"Plugins": [
 		{
+			"Name": "AIFlow",
+			"Enabled": true
+		},
+		{
+			"Name": "AIFlowGameplayTags",
+			"Enabled": true
+		},
+		{
+			"Name": "BlackboardGameplayTags",
+			"Enabled": true
+		},
+		{
 			"Name": "Bridge",
 			"Enabled": true
 		},
