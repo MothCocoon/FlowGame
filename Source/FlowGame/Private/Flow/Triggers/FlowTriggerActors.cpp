@@ -1,5 +1,4 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Triggers/FlowTriggerBox.h"
 #include "Flow/Triggers/FlowTriggerCapsule.h"
 #include "Flow/Triggers/FlowTriggerSphere.h"

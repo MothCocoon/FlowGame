@@ -1,6 +1,6 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #include "Flow/Nodes/FlowNode_CustomCheckpoint.h"
+
 #include "Flow/FlowSaveSubsystem.h"
 
 #include "Engine/GameInstance.h"

@@ -1,4 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
 #include "Gameplay/MoverPawn.h"
@@ -23,9 +23,10 @@ public:
 private:
 	TWeakObjectPtr<UTaggedInputComponent> TaggedInputComponent;
 
-public:
+protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
+public:
 	void SetExplorationContext();
 	void RemoveExplorationContext() const;
 

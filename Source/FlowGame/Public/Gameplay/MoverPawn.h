@@ -1,4 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
 #include "GameFramework/Pawn.h"
@@ -52,14 +52,15 @@ public:
 	UFUNCTION(BlueprintPure, Category = "MossPawn")
 	FGameplayTagContainer GetIdentityTags() const;
 
-protected:
 	virtual void ProduceInput_Implementation(int32 SimTimeMs, FMoverInputCmdContext& InputCmdResult) override;
+
+protected:
 	virtual FVector GetDirectionalIntent();
 
 protected:
 	// Used when obtaining reachable point around MoveTo target
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MossMover")
-	float RadiusOfReachablePoint;
+	float RadiusOfReachablePoint = 50.0f;
 
 public:
 	FOnPathFollowingEvent OnMoveToLocationFinished;

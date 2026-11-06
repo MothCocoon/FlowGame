@@ -1,4 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #pragma once
 
 #include "Nodes/FlowNode.h"
@@ -15,7 +15,9 @@ class UFlowNode_CustomCheckpoint final : public UFlowNode
 public:
 	UFlowNode_CustomCheckpoint();
 
-protected:
+public:
 	virtual void ExecuteInput(const FName& PinName) override;
+
+protected:
 	virtual void OnLoad_Implementation() override;
 };

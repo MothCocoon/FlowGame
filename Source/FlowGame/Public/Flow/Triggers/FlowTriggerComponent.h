@@ -12,23 +12,23 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFlowTriggerComponentEvent, const b
 UCLASS(meta = (BlueprintSpawnableComponent))
 class UFlowTriggerComponent final : public UFlowComponent
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FlowTrigger")
-	bool bAutoEnable;
+	bool bAutoEnable = true;
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "FlowTrigger")
-	bool bOverlapEnabled;
+	bool bOverlapEnabled = false;
 
 	UPROPERTY(BlueprintAssignable, Category = "FlowTrigger")
 	FFlowTriggerComponentEvent OnTriggerEvent;
 	
 	TArray<TWeakObjectPtr<UPrimitiveComponent>> CollisionComponents;
 
-protected:
+public:
 	virtual void NotifyFromGraph(const FGameplayTagContainer& NotifyTags, const EFlowNetMode NetMode) override;
 
-public:
 	void EnableOverlap();
 	void DisableOverlap();
 

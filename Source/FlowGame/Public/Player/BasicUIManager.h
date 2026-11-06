@@ -14,9 +14,6 @@ class UBasicUIManager : public ULocalPlayerSubsystem
 {
 	GENERATED_BODY()
 
-public:
-	UBasicUIManager();
-	
 private:
 	UPROPERTY()
 	TMap<TSoftClassPtr<UUserWidget>, TObjectPtr<UUserWidget>> OpenedWidgets;

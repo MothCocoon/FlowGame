@@ -19,7 +19,7 @@ struct FQuestSpawnParams
 	TSubclassOf<AActor> ActorClass;
 
 	UPROPERTY(EditAnywhere, Category = "Spawn")
-	float ActorScale;
+	float ActorScale = 1.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Spawn AI")
 	TSoftObjectPtr<UBehaviorTree> BehaviorTree;
@@ -31,14 +31,7 @@ struct FQuestSpawnParams
 	TObjectPtr<UAnimationAsset> AnimationAsset;
 
 	UPROPERTY(EditAnywhere, Category = "Spawn AI")
-	bool bNoCollisionFail;
-
-	FQuestSpawnParams()
-		: ActorScale(1.0f)
-		, AnimationAsset(nullptr)
-		, bNoCollisionFail(true)
-	{
-	}
+	bool bNoCollisionFail = true;
 };
 
 /**

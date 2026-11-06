@@ -13,7 +13,9 @@ class UUserWidget;
 UCLASS(Config = Game, defaultconfig, meta = (DisplayName = "Player"))
 class UPlayerSettings final : public UDeveloperSettings
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
+
+public:
 	UPROPERTY(Config, EditAnywhere, Category = "Input")
 	TSoftClassPtr<UUserWidget> InteractionWidget;
 

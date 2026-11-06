@@ -1,6 +1,6 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Nodes/FlowNode_SetInteractionState.h"
+
 #include "Gameplay/InteractionComponent.h"
 
 #include "FlowSubsystem.h"

@@ -1,5 +1,4 @@
-﻿// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
+// Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
 #include "Flow/FlowSaveSubsystem.h"
 
 #include "FlowWorldSettings.h"
@@ -8,10 +7,6 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowSaveSubsystem)
 
 FString UFlowSaveSubsystem::CheckpointSlotName = TEXT("Checkpoint");
-
-UFlowSaveSubsystem::UFlowSaveSubsystem()
-{
-}
 
 bool UFlowSaveSubsystem::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar)
 {
