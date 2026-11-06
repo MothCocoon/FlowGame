@@ -62,17 +62,17 @@ void ABasicPlayerController::SetExplorationContext()
 				PlayerPawn->SetExplorationContext();
 			}
 
-			if (TaggedInputComponent.IsValid())
+			if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 			{
 				// camera
-				TaggedInputComponent->BindValueByTag(ExplorationContext, PlayerTags::Input_CameraPitch);
-				TaggedInputComponent->BindActionByTag(ExplorationContext, PlayerTags::Input_CameraPitch, ETriggerEvent::Triggered, this, &ThisClass::AddPitch);
+				TaggedInputComponentPtr->BindValueByTag(ExplorationContext, PlayerTags::Input_CameraPitch);
+				TaggedInputComponentPtr->BindActionByTag(ExplorationContext, PlayerTags::Input_CameraPitch, ETriggerEvent::Triggered, this, &ThisClass::AddPitch);
 				
-				TaggedInputComponent->BindValueByTag(ExplorationContext, PlayerTags::Input_CameraYaw);
-				TaggedInputComponent->BindActionByTag(ExplorationContext, PlayerTags::Input_CameraYaw, ETriggerEvent::Triggered, this, &ThisClass::AddYaw);
+				TaggedInputComponentPtr->BindValueByTag(ExplorationContext, PlayerTags::Input_CameraYaw);
+				TaggedInputComponentPtr->BindActionByTag(ExplorationContext, PlayerTags::Input_CameraYaw, ETriggerEvent::Triggered, this, &ThisClass::AddYaw);
 
 				// interaction
-				TaggedInputComponent->BindActionByTag(ExplorationContext, PlayerTags::Input_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteractionUsed);
+				TaggedInputComponentPtr->BindActionByTag(ExplorationContext, PlayerTags::Input_Interaction, ETriggerEvent::Started, this, &ThisClass::OnInteractionUsed);
 			}
 		}
 	}
@@ -80,17 +80,17 @@ void ABasicPlayerController::SetExplorationContext()
 
 void ABasicPlayerController::AddPitch()
 {
-	if (TaggedInputComponent.IsValid())
+	if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 	{
-		RotationInput.Pitch += TaggedInputComponent->GetValueByTag(PlayerTags::Input_CameraPitch).Get<float>();
+		RotationInput.Pitch += TaggedInputComponentPtr->GetValueByTag(PlayerTags::Input_CameraPitch).Get<float>();
 	}
 }
 
 void ABasicPlayerController::AddYaw()
 {
-	if (TaggedInputComponent.IsValid())
+	if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 	{
-		RotationInput.Yaw += TaggedInputComponent->GetValueByTag(PlayerTags::Input_CameraYaw).Get<float>();
+		RotationInput.Yaw += TaggedInputComponentPtr->GetValueByTag(PlayerTags::Input_CameraYaw).Get<float>();
 	}
 }
 
@@ -153,8 +153,8 @@ void ABasicPlayerController::DeactivateInteraction()
 
 void ABasicPlayerController::OnInteractionUsed()
 {
-	if (ActiveInteraction.IsValid())
+	if (UInteractionComponent* ActiveInteractionPtr = ActiveInteraction.Get())
 	{
-		ActiveInteraction->OnUsed.Broadcast();
+		ActiveInteractionPtr->OnUsed.Broadcast();
 	}
 }

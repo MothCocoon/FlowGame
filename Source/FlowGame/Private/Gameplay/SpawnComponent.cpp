@@ -28,18 +28,20 @@ void USpawnComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 bool USpawnComponent::Spawn(const FQuestSpawnParams& SpawnParams)
 {
+	AActor* SpawnedActorPtr = nullptr;
+
 	if (SpawnParams.ActorClass->IsChildOf(APawn::StaticClass()))
 	{
 		UBehaviorTree* LoadedBT = LoadAsset<UBehaviorTree>(SpawnParams.BehaviorTree);
-		SpawnedActor = UAIBlueprintHelperLibrary::SpawnAIFromClass(this, SpawnParams.ActorClass.Get(), LoadedBT, GetComponentLocation(), GetComponentRotation(), SpawnParams.bNoCollisionFail);
+		SpawnedActorPtr = UAIBlueprintHelperLibrary::SpawnAIFromClass(this, SpawnParams.ActorClass.Get(), LoadedBT, GetComponentLocation(), GetComponentRotation(), SpawnParams.bNoCollisionFail);
 
-		if (SpawnedActor.IsValid() && (SpawnParams.AnimInstance || SpawnParams.AnimationAsset))
+		if (IsValid(SpawnedActorPtr) && (SpawnParams.AnimInstance || SpawnParams.AnimationAsset))
 		{
-			if (const ACharacter* Character = Cast<ACharacter>(SpawnedActor))
+			if (const ACharacter* Character = Cast<ACharacter>(SpawnedActorPtr))
 			{
 				SetAnimationOnSpawnedMesh(Character->GetMesh(), SpawnParams);
 			}
-			else if (const APawn* Pawn = Cast<APawn>(SpawnedActor))
+			else if (const APawn* Pawn = Cast<APawn>(SpawnedActorPtr))
 			{
 				if (USkeletalMeshComponent* SkeletalMesh = Pawn->FindComponentByClass<USkeletalMeshComponent>())
 				{
@@ -50,22 +52,24 @@ bool USpawnComponent::Spawn(const FQuestSpawnParams& SpawnParams)
 	}
 	else
 	{
-		SpawnedActor = GetWorld()->SpawnActor(SpawnParams.ActorClass, &GetComponentTransform());
+		SpawnedActorPtr = GetWorld()->SpawnActor(SpawnParams.ActorClass, &GetComponentTransform());
 	}
 
-	if (SpawnedActor.IsValid() && SpawnParams.ActorScale != 1.0f)
+	SpawnedActor = SpawnedActorPtr;
+
+	if (IsValid(SpawnedActorPtr) && SpawnParams.ActorScale != 1.0f)
 	{
-		SpawnedActor->SetActorScale3D(SpawnedActor->GetActorScale3D() * SpawnParams.ActorScale);
+		SpawnedActorPtr->SetActorScale3D(SpawnedActorPtr->GetActorScale3D() * SpawnParams.ActorScale);
 	}
 
-	return SpawnedActor.IsValid();
+	return IsValid(SpawnedActorPtr);
 }
 
 void USpawnComponent::Despawn()
 {
-	if (SpawnedActor.IsValid())
+	if (AActor* SpawnedActorPtr = SpawnedActor.Get())
 	{
-		SpawnedActor->Destroy();
+		SpawnedActorPtr->Destroy();
 	}
 
 	SpawnedActor = nullptr;

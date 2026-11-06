@@ -29,21 +29,21 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void APlayerPawn::SetExplorationContext()
 {
-	if (TaggedInputComponent.IsValid())
+	if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 	{
 		const UInputMappingContext* ExplorationContext = GetDefault<UPlayerSettings>()->ExplorationContext.LoadSynchronous();
 
-		TaggedInputComponent->BindValueByTag(ExplorationContext, PlayerTags::Input_MoveForward);
-		TaggedInputComponent->BindValueByTag(ExplorationContext, PlayerTags::Input_MoveRight);
+		TaggedInputComponentPtr->BindValueByTag(ExplorationContext, PlayerTags::Input_MoveForward);
+		TaggedInputComponentPtr->BindValueByTag(ExplorationContext, PlayerTags::Input_MoveRight);
 	}
 }
 
 void APlayerPawn::RemoveExplorationContext() const
 {
-	if (TaggedInputComponent.IsValid())
+	if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 	{
-		TaggedInputComponent->RemoveBindingsByTag(PlayerTags::Input_MoveForward);
-		TaggedInputComponent->RemoveBindingsByTag(PlayerTags::Input_MoveRight);
+		TaggedInputComponentPtr->RemoveBindingsByTag(PlayerTags::Input_MoveForward);
+		TaggedInputComponentPtr->RemoveBindingsByTag(PlayerTags::Input_MoveRight);
 	}
 }
 
@@ -52,10 +52,10 @@ FVector APlayerPawn::GetDirectionalIntent()
 	FVector Result;
 
 	// read movement direction from player input
-	if (TaggedInputComponent.IsValid())
+	if (UTaggedInputComponent* TaggedInputComponentPtr = TaggedInputComponent.Get())
 	{
-		Result.X = TaggedInputComponent->GetValueByTag(PlayerTags::Input_MoveForward).Get<float>();
-		Result.Y = TaggedInputComponent->GetValueByTag(PlayerTags::Input_MoveRight).Get<float>();
+		Result.X = TaggedInputComponentPtr->GetValueByTag(PlayerTags::Input_MoveForward).Get<float>();
+		Result.Y = TaggedInputComponentPtr->GetValueByTag(PlayerTags::Input_MoveRight).Get<float>();
 	}
 
 	return Result;

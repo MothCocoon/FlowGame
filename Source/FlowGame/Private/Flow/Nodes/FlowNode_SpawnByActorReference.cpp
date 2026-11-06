@@ -51,9 +51,9 @@ void UFlowNode_SpawnByActorReference::ExecuteInput(const FName& PinName)
 			int32 DespawnCount = 0;
 			for (TWeakObjectPtr<USpawnComponent> SpawnComponent : SpawnComponents)
 			{
-				if (SpawnComponent.IsValid())
+				if (USpawnComponent* SpawnComponentPtr = SpawnComponent.Get())
 				{
-					SpawnComponent->Despawn();
+					SpawnComponentPtr->Despawn();
 					DespawnCount++;
 				}
 			}

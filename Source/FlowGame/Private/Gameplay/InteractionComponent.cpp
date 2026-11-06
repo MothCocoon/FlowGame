@@ -62,9 +62,9 @@ void UInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	bool bConditionsMet = false;
-	if (CameraManager.IsValid())
+	if (const APlayerCameraManager* CameraManagerPtr = CameraManager.Get())
 	{
-		const FVector DistanceToCamera = GetComponentLocation() - CameraManager->GetCameraLocation();
+		const FVector DistanceToCamera = GetComponentLocation() - CameraManagerPtr->GetCameraLocation();
 		bConditionsMet = DistanceToCamera.Size() < Distance;
 	}
 

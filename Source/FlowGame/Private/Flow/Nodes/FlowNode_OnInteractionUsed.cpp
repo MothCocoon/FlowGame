@@ -26,11 +26,14 @@ void UFlowNode_OnInteractionUsed::ObserveActor(TWeakObjectPtr<AActor> Actor, TWe
 
 void UFlowNode_OnInteractionUsed::ForgetActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component)
 {
-	ensureAlways(ObservedInteractions.Contains(Component->GetOwner()));
-	const TWeakObjectPtr<UInteractionComponent> InteractionComponent = ObservedInteractions[Component->GetOwner()];
-	
-	InteractionComponent->OnUsed.RemoveAll(this);
-	ObservedInteractions.Remove(Component->GetOwner());
+	AActor* Owner = Component->GetOwner();
+	ensureAlways(ObservedInteractions.Contains(Owner));
+
+	if (UInteractionComponent* InteractionComponent = ObservedInteractions.FindRef(Owner).Get())
+	{
+		InteractionComponent->OnUsed.RemoveAll(this);
+	}
+	ObservedInteractions.Remove(Owner);
 }
 
 void UFlowNode_OnInteractionUsed::FastForwardEvent()
@@ -58,7 +61,10 @@ void UFlowNode_OnInteractionUsed::Cleanup()
 
 	for (const TPair<TWeakObjectPtr<AActor>, TWeakObjectPtr<UInteractionComponent>>& Interaction : ObservedInteractions)
 	{
-		Interaction.Value->OnUsed.RemoveAll(this);
+		if (UInteractionComponent* ObservedInteraction = Interaction.Value.Get())
+		{
+			ObservedInteraction->OnUsed.RemoveAll(this);
+		}
 	}
 	ObservedInteractions.Empty();
 }
