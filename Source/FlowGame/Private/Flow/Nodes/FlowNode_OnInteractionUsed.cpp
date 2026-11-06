@@ -1,15 +1,11 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Nodes/FlowNode_OnInteractionUsed.h"
+
 #include "Gameplay/InteractionComponent.h"
 
 #include "FlowComponent.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowNode_OnInteractionUsed)
-
-UFlowNode_OnInteractionUsed::UFlowNode_OnInteractionUsed()
-{
-}
 
 void UFlowNode_OnInteractionUsed::ObserveActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component)
 {
@@ -34,6 +30,26 @@ void UFlowNode_OnInteractionUsed::ForgetActor(TWeakObjectPtr<AActor> Actor, TWea
 	const TWeakObjectPtr<UInteractionComponent> InteractionComponent = ObservedInteractions[Component->GetOwner()];
 	
 	InteractionComponent->OnUsed.RemoveAll(this);
+	ObservedInteractions.Remove(Component->GetOwner());
+}
+
+void UFlowNode_OnInteractionUsed::FastForwardEvent()
+{
+	UInteractionComponent* UsedInteraction = nullptr;
+	for (const TPair<TWeakObjectPtr<AActor>, TWeakObjectPtr<UInteractionComponent>>& Interaction : ObservedInteractions)
+	{
+		UInteractionComponent* ObservedInteraction = Interaction.Value.Get();
+		if (UsedInteraction == nullptr && ObservedInteraction && ObservedInteraction->IsEnabled())
+		{
+			UsedInteraction = ObservedInteraction;
+		}
+	}
+
+	// Player uses the interaction, so every listener of the interaction reacts
+	if (UsedInteraction)
+	{
+		UsedInteraction->OnUsed.Broadcast();
+	}
 }
 
 void UFlowNode_OnInteractionUsed::Cleanup()

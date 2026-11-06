@@ -15,16 +15,15 @@ class  UFlowNode_OnInteractionUsed : public UFlowNode_ComponentObserver
 {
 	GENERATED_BODY()
 		
-public:
-	UFlowNode_OnInteractionUsed();
-	
 protected:
 	TMap<TWeakObjectPtr<AActor>, TWeakObjectPtr<UInteractionComponent>> ObservedInteractions;
 
 protected:
 	virtual void ObserveActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component) override;
 	virtual void ForgetActor(TWeakObjectPtr<AActor> Actor, TWeakObjectPtr<UFlowComponent> Component) override;
-	
-protected:
+
+	virtual void FastForwardEvent() override;
+
+public:
 	virtual void Cleanup() override;
 };

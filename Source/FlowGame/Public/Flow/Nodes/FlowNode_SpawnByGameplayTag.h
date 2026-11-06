@@ -28,13 +28,21 @@ protected:
 
 	TSet<TWeakObjectPtr<USpawnComponent>> SpawnComponents;
 	
-protected:
+public:
 	virtual void ExecuteInput(const FName& PinName) override;
+	virtual bool CanFastForward(const FName& InputPinName, const FName& OutputPinName) const override;
 	virtual void Cleanup() override;
-	
+
+protected:
+	virtual void OnLoad_Implementation() override;
+
+	void SpawnActors(const bool bKeepSpawnedActors);
+
 #if WITH_EDITOR
 public:
 	virtual FString GetNodeDescription() const override;
+
+protected:
 	virtual EDataValidationResult ValidateNode() override;
 #endif
 };

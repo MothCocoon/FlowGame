@@ -1,6 +1,6 @@
 // Copyright https://github.com/MothCocoon/FlowGame/graphs/contributors
-
 #include "Flow/Nodes/FlowNode_SpawnByGameplayTag.h"
+
 #include "FlowSubsystem.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FlowNode_SpawnByGameplayTag)
@@ -21,45 +21,16 @@ void UFlowNode_SpawnByGameplayTag::ExecuteInput(const FName& PinName)
 	{
 		if (PinName == TEXT("Spawn"))
 		{
-			int32 SpawnCount = 0;
-			for (const TWeakObjectPtr<UFlowComponent>& FoundComponent : GetFlowSubsystem()->GetComponents<UFlowComponent>(IdentityTags, EGameplayContainerMatchType::Any))
-			{
-				TArray<USpawnComponent*> NewSpawnComponents;
-				FoundComponent->GetOwner()->GetComponents<USpawnComponent>(NewSpawnComponents);
-
-				for (USpawnComponent* SpawnComponent : NewSpawnComponents)
-				{
-					if (!SpawnComponents.Contains(SpawnComponent))
-					{
-						if (SpawnComponent->Spawn(SpawnParams))
-						{
-							SpawnComponents.Emplace(SpawnComponent);
-							SpawnCount++;
-						}
-					}
-				}
-			}
-
-			if (SpawnCount > 0)
-			{
-				TriggerOutput(TEXT("Spawned"));
-			}
+			SpawnActors(false);
 		}
 		else if (PinName == TEXT("Despawn"))
 		{
-			int32 DespawnCount = 0;
 			for (TWeakObjectPtr<USpawnComponent> SpawnComponent : SpawnComponents)
 			{
 				if (SpawnComponent.IsValid())
 				{
 					SpawnComponent->Despawn();
-					DespawnCount++;
 				}
-			}
-
-			if (DespawnCount > 0)
-			{
-				TriggerOutput(TEXT("Despawned"), true);
 			}
 		}
 	}
@@ -68,12 +39,57 @@ void UFlowNode_SpawnByGameplayTag::ExecuteInput(const FName& PinName)
 		LogError(MissingIdentityTag);
 	}
 
-	TriggerFirstOutput(true);
+	// Graph continues also if no actor was spawned or despawned
+	if (PinName == TEXT("Spawn"))
+	{
+		TriggerOutput(TEXT("Spawned"));
+	}
+	else if (PinName == TEXT("Despawn"))
+	{
+		TriggerOutput(TEXT("Despawned"), true);
+	}
+}
+
+bool UFlowNode_SpawnByGameplayTag::CanFastForward(const FName& InputPinName, const FName& OutputPinName) const
+{
+	return (InputPinName == TEXT("Despawn")) == (OutputPinName == TEXT("Despawned"));
 }
 
 void UFlowNode_SpawnByGameplayTag::Cleanup()
 {
 	SpawnComponents.Empty();
+
+	Super::Cleanup();
+}
+
+void UFlowNode_SpawnByGameplayTag::OnLoad_Implementation()
+{
+	// Spawned actors aren't saved, so the active node spawns them again
+	// Game loaded in the same world still has actors spawned before
+	if (IdentityTags.IsValid())
+	{
+		SpawnActors(true);
+	}
+}
+
+void UFlowNode_SpawnByGameplayTag::SpawnActors(const bool bKeepSpawnedActors)
+{
+	for (const TWeakObjectPtr<UFlowComponent>& FoundComponent : GetFlowSubsystem()->GetComponents<UFlowComponent>(IdentityTags, EGameplayContainerMatchType::Any))
+	{
+		TArray<USpawnComponent*> NewSpawnComponents;
+		FoundComponent->GetOwner()->GetComponents<USpawnComponent>(NewSpawnComponents);
+
+		for (USpawnComponent* SpawnComponent : NewSpawnComponents)
+		{
+			if (!SpawnComponents.Contains(SpawnComponent))
+			{
+				if ((bKeepSpawnedActors && SpawnComponent->HasSpawnedActor()) || SpawnComponent->Spawn(SpawnParams))
+				{
+					SpawnComponents.Emplace(SpawnComponent);
+				}
+			}
+		}
+	}
 }
 
 #if WITH_EDITOR
