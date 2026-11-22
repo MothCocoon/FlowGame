@@ -8,7 +8,7 @@ public class FlowGameTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		DefaultBuildSettings = BuildSettingsVersion.V7;
+		DefaultBuildSettings = BuildSettingsVersion.Latest;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 		NativePointerMemberBehaviorOverride = PointerMemberBehavior.Disallow;
 

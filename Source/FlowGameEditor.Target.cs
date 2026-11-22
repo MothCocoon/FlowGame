@@ -8,7 +8,7 @@ public class FlowGameEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		DefaultBuildSettings = BuildSettingsVersion.V7;
+		DefaultBuildSettings = BuildSettingsVersion.Latest;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 		NativePointerMemberBehaviorOverride = PointerMemberBehavior.Disallow;
 		
